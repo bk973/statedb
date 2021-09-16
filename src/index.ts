@@ -4,11 +4,13 @@
  */
 class CreateDatabase {
       name?: string; //optional
+      collections: string[]; 
       /**
        * NOTE: We hope to add another class member to accept an options Object for config purposes.
        */
   constructor(name?: string) {
       this.name = name;
+      this. collections = []; //This is where collections will live
   }
 }
 
