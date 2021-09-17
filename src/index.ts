@@ -4,13 +4,28 @@
  */
 class CreateDatabase {
       name?: string; //optional
-      collections: string[]; 
+      collections: any[]; 
       /**
        * NOTE: We hope to add another class member to accept an options Object for config purposes.
        */
-  constructor(name?: string) {
+  constructor(name: string) {
       this.name = name;
       this. collections = []; //This is where collections will live
+  }
+  createCollection(name: string, shape: object): void {
+      //create a new collection...
+      let _collection = new Collection(name, shape);
+      
+      //check if a collection with such a name already exists in the collections array
+      for(let col of this.collections) {
+           if(_collection.name === col.name) throw new Error(`
+              Looks like a collection with such a name already exists.
+              Try using a different name for your collection.
+           `)
+      }
+
+      //Insert the new collection in the database (Collections array)...
+      this.collections.push(_collection) //Push at the end of the array...
   }
 }
 
@@ -41,3 +56,10 @@ class Field {
         this.data = data;
     }
 }
+
+
+//text
+const mydb = new CreateDatabase('mydb');
+mydb.createCollection('Users', {});
+
+console.log(mydb.collections);
