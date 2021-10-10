@@ -20,8 +20,11 @@ class Collection {
   constructor(name: string, shape:any) {
        this.name = name; //Required name of the collection...
        this.shape = shape; //The shape that will be adopted by the incoming data...
+       this.collectionName = this.collectionName.bind(this);
   }
-
+  collectionName():string{
+      return this.name;
+  }
   /**
    * Inserts new data into the collection
    * @param data {Object} An object containing data to be saved to the collection
