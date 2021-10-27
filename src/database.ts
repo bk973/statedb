@@ -7,12 +7,13 @@ import Collection from "./collection";
 export default class CreateDatabase {
     name?: string; //optional
     collections: any[]; 
-    /**
-     * NOTE: We hope to add another class member to accept an options Object for config purposes.
-     */
 constructor(name: string) {
     this.name = name;
-    this. collections = []; 
+    this.collections = []; 
+
+    //bind (this) to instance methods...
+    this.createCollection = this.createCollection.bind(this);
+    this.collection = this.collection.bind(this);
 }
 createCollection(name: string, shape: object): void {
     //create a new collection...
@@ -29,4 +30,12 @@ createCollection(name: string, shape: object): void {
     //Insert the new collection in the database (Collections array)...
     this.collections.push(_collection) //Push at the end of the array...
 }
+collection(name: string){
+    let _col = null;
+     for(let c of this.collections){
+         if(name !== c.name) continue;
+         _col = c;
+     }
+     return _col;
+  }
 }
